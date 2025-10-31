@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./responsive.css";
 import { GraphSection } from "./components/GraphSection";
 import { Transactions } from "./components/Transactions";
 import { useEffect, useState } from "react";

@@ -1,0 +1,478 @@
+/* Mobile Responsive Styles */
+
+/* Mobile devices (phones, 768px and down) */
+@media (max-width: 768px) {
+  /* Header adjustments */
+  .revenue-app .header {
+    padding: 12px 16px;
+    margin: 8px;
+    border-radius: 50px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Logo row - centered */
+  .revenue-app .header img {
+    height: 32px;
+    width: 32px;
+    order: 1;
+    align-self: center;
+  }
+
+  /* Menu row - centered */
+  .revenue-app .header .menu {
+    order: 2;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+  }
+
+  .revenue-app .header .menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .revenue-app .header .menu a {
+    font-size: 14px;
+    padding: 6px 14px 6px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .revenue-app .header .menu a span {
+    font-size: 13px;
+  }
+
+  /* Settings row - centered */
+  .revenue-app .header .settings-section {
+    order: 3;
+    align-self: center;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .revenue-app .header .settings-section button {
+    padding: 8px;
+  }
+
+  .revenue-app .header .settings-section .user {
+    padding: 3px 10px 3px 4px;
+  }
+
+  .revenue-app .header .settings-section .user .avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  /* Sidebar becomes full-width bottom navigation on mobile */
+  .revenue-app .content .side-menu {
+    position: fixed;
+    bottom: 16px;
+    top: auto;
+    left: 16px;
+    right: 16px;
+    transform: none;
+    width: calc(100% - 32px);
+    height: auto;
+    flex-direction: row;
+    padding: 12px 16px;
+    border-radius: 20px;
+    z-index: 100;
+    box-shadow: 0px 4px 12px 0px #5c738328;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .revenue-app .content .side-menu .item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Main content padding */
+  .revenue-app .main-content {
+    padding: 24px 16px;
+    margin-bottom: 80px; /* Space for bottom sidebar */
+  }
+
+  /* Graph section - stack vertically */
+  .revenue-app .main-content .graph-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-header .title h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-header button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-container {
+    overflow-x: auto;
+  }
+
+  /* Balances section */
+  .revenue-app .main-content .graph-section .balances {
+    margin-top: 0;
+  }
+
+  .revenue-app .main-content .graph-section .balances .balance {
+    margin-bottom: 20px;
+  }
+
+  .revenue-app .main-content .graph-section .balances .balance div h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  /* Transactions section */
+  .revenue-app .main-content .transactions-section {
+    margin-top: 40px;
+  }
+
+  .revenue-app .main-content .transactions-section .transactions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .revenue-app .main-content .transactions-section .transactions-header .filters {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .filters
+    button {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    justify-content: center;
+    font-size: 14px;
+    height: 44px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .title
+    h3 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  /* Transaction items - maintain left/right layout */
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eff1f6;
+    margin-bottom: 16px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-left {
+    flex: 1;
+    min-width: 0; /* Allow flex item to shrink */
+    gap: 10px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-left
+    .avatar {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    flex-shrink: 0;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-left
+    .transaction-item-left-content {
+    min-width: 0; /* Allow text to truncate */
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-left
+    .transaction-item-left-content
+    h4 {
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-left
+    .transaction-item-left-content
+    p {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-right {
+    flex-shrink: 0;
+    align-items: flex-end;
+    min-width: fit-content;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-right
+    h4 {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .transaction-item
+    .transaction-item-right
+    p {
+    font-size: 12px;
+    text-align: right;
+  }
+
+  /* Empty state */
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .empty-state {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .empty-state
+    h2 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-list
+    .empty-state
+    p {
+    font-size: 14px;
+  }
+
+  /* Loading overlay */
+  .loading-overlay {
+    padding: 16px;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+}
+
+/* Small mobile devices (phones, 480px and down) */
+@media (max-width: 480px) {
+  .revenue-app .header {
+    padding: 10px 12px;
+    margin: 8px;
+    gap: 12px;
+  }
+
+  .revenue-app .header img {
+    height: 28px;
+    width: 28px;
+  }
+
+  .revenue-app .header .menu {
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .revenue-app .header .menu a {
+    font-size: 12px;
+    padding: 6px 10px 6px 8px;
+  }
+
+  .revenue-app .header .menu a span {
+    display: none; /* Hide text on very small screens, show only icons */
+  }
+
+  .revenue-app .header .menu a svg {
+    height: 18px;
+    width: 18px;
+  }
+
+  .revenue-app .header .settings-section {
+    justify-content: center;
+  }
+
+  .revenue-app .main-content {
+    padding: 16px 12px;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-header .title h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .revenue-app .main-content .graph-section .graph .graph-header .title p {
+    font-size: 12px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .filters
+    button {
+    font-size: 12px;
+    padding: 0 12px;
+    height: 40px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .title
+    h3 {
+    font-size: 18px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .title
+    p {
+    font-size: 12px;
+  }
+
+  .revenue-app .main-content .graph-section .balances .balance div h1 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .revenue-app .main-content .graph-section .balances .balance div p {
+    font-size: 12px;
+  }
+
+  .revenue-app .content .side-menu {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    width: calc(100% - 24px);
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+
+  .revenue-app .content .side-menu .item img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Tablet devices (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .revenue-app .main-content {
+    padding: 48px 64px;
+  }
+
+  .revenue-app .main-content .graph-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .revenue-app .header .menu {
+    gap: 12px;
+  }
+
+  .revenue-app .header .menu a {
+    font-size: 14px;
+    padding: 6px 14px 6px 10px;
+  }
+
+  .revenue-app
+    .main-content
+    .transactions-section
+    .transactions-header
+    .filters
+    button {
+    font-size: 14px;
+  }
+}
+
+/* Large screens - ensure proper spacing */
+@media (min-width: 1400px) {
+  .revenue-app .main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
