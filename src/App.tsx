@@ -22,6 +22,7 @@ import type { Transaction, User, WalletBalance } from "./utils/types";
 
 function App() {
   const endPointUrl = "https://fe-task-api.mainstack.io";
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [walletBalance, setWalletBalance] = useState<WalletBalance | null>(
@@ -31,8 +32,7 @@ function App() {
   const handleFetchUser = async () => {
     try {
       const response = await fetch(`${endPointUrl}/user`);
-      const data = await response.json();
-      setUser(data);
+      return response.json();
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch user");
@@ -42,8 +42,7 @@ function App() {
   const handleFetchTransactions = async () => {
     try {
       const response = await fetch(`${endPointUrl}/transactions`);
-      const data = await response.json();
-      setTransactions(data);
+      return response.json();
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch transactions");
@@ -53,8 +52,7 @@ function App() {
   const handleWalletBalance = async () => {
     try {
       const response = await fetch(`${endPointUrl}/wallet`);
-      const data = await response.json();
-      setWalletBalance(data);
+      return response.json();
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch wallet balance");
@@ -62,13 +60,36 @@ function App() {
   };
 
   useEffect(() => {
-    handleFetchUser();
-    handleFetchTransactions();
-    handleWalletBalance();
+    handleFetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleFetchData = async () => {
+    try {
+      setIsLoading(true);
+      const [user, transactions, walletBalance] = await Promise.all([
+        handleFetchUser(),
+        handleFetchTransactions(),
+        handleWalletBalance(),
+      ]);
+      setUser(user);
+      setTransactions(transactions);
+      setWalletBalance(walletBalance);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch data");
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className='revenue-app'>
+      {isLoading && (
+        <div className='loading-overlay'>
+          <div className='loading-spinner'></div>
+        </div>
+      )}
       <div className='header'>
         <img src={MainStackLogo} alt='MainStack Logo' />
         <div className='menu'>
