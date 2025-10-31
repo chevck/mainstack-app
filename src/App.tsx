@@ -1,9 +1,5 @@
 import "./styles.css";
 import MainStackLogo from "./assets/mainstack-logo.svg";
-import StoreIcon from "./assets/store-icon.svg";
-import SideLinkIcon from "./assets/side-link-icon.svg";
-import MediaKitIcon from "./assets/media-kit-icon.png";
-import InvoicingIcon from "./assets/invoicing-icon.png";
 import {
   Banknote,
   Bell,
@@ -18,10 +14,14 @@ import { GraphSection } from "./components/GraphSection";
 import { Transactions } from "./components/Transactions";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import type { Transaction, User, WalletBalance } from "./utils/types";
+import type { Transaction } from "./types/transaction.types";
+import type { User } from "./types/user.types";
+import type { WalletBalance } from "./types/wallet.types";
+import { ENDPOINT_URL } from "./constants/config";
+import { Sidebar } from "./components/layout/Sidebar";
+import { Header } from "./components/layout/Header";
 
 function App() {
-  const endPointUrl = "https://fe-task-api.mainstack.io";
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -31,7 +31,7 @@ function App() {
 
   const handleFetchUser = async () => {
     try {
-      const response = await fetch(`${endPointUrl}/user`);
+      const response = await fetch(`${ENDPOINT_URL}/user`);
       return response.json();
     } catch (error) {
       console.error(error);
@@ -41,7 +41,7 @@ function App() {
 
   const handleFetchTransactions = async () => {
     try {
-      const response = await fetch(`${endPointUrl}/transactions`);
+      const response = await fetch(`${ENDPOINT_URL}/transactions`);
       return response.json();
     } catch (error) {
       console.error(error);
@@ -51,7 +51,7 @@ function App() {
 
   const handleWalletBalance = async () => {
     try {
-      const response = await fetch(`${endPointUrl}/wallet`);
+      const response = await fetch(`${ENDPOINT_URL}/wallet`);
       return response.json();
     } catch (error) {
       console.error(error);
@@ -90,61 +90,9 @@ function App() {
           <div className='loading-spinner'></div>
         </div>
       )}
-      <div className='header'>
-        <img src={MainStackLogo} alt='MainStack Logo' />
-        <div className='menu'>
-          <a href='#'>
-            <HomeIcon />
-            <span>Home</span>
-          </a>
-          <a href='#'>
-            <FileChartColumn />
-            <span>Analytics</span>
-          </a>
-          <a href='#' className='active'>
-            <Banknote />
-            <span>Revenue</span>
-          </a>
-          <a href='#'>
-            <Users />
-            <span>CRM</span>
-          </a>
-          <a href='#'>
-            <LayoutGrid />
-            <span>Apps</span>
-          </a>
-        </div>
-        <div className='settings-section'>
-          <button>
-            <Bell color='#56616B' size={20} />
-          </button>
-          <button>
-            <MessageSquareText color='#56616B' size={20} />
-          </button>
-          <div className='user'>
-            <div className='avatar'>
-              {user?.first_name?.charAt(0)}
-              {user?.last_name?.charAt(0)}
-            </div>
-            <Menu />
-          </div>
-        </div>
-      </div>
+      <Header user={user} />
       <div className='content'>
-        <div className='side-menu'>
-          <div className='item'>
-            <img src={SideLinkIcon} alt='Side Link Icon' />
-          </div>
-          <div className='item'>
-            <img src={StoreIcon} alt='Store Icon' />
-          </div>
-          <div className='item'>
-            <img src={MediaKitIcon} alt='Media Kit Icon' />
-          </div>
-          <div className='item'>
-            <img src={InvoicingIcon} alt='Invoicing Icon' />
-          </div>
-        </div>
+        <Sidebar />
         <div className='main-content'>
           <GraphSection walletBalance={walletBalance} />
           <Transactions transactions={transactions} />

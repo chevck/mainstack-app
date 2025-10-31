@@ -1,7 +1,7 @@
 import { Chart, useChart } from "@chakra-ui/charts";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { InfoIcon } from "lucide-react";
-import type { WalletBalance } from "../utils/types";
+import type { WalletBalance } from "../types/wallet.types";
 import { formatMoney } from "../utils";
 
 export function GraphSection({
