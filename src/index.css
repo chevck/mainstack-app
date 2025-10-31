@@ -1,41 +1,41 @@
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Bold.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Black.woff") format("truetype");
   font-weight: 800;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Semibold.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Bold.woff") format("truetype");
   font-weight: 700;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Black.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Semibold.woff") format("truetype");
   font-weight: 600;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Medium.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Medium.woff") format("truetype");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Regular.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Regular.woff") format("truetype");
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Thin.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Thin.woff") format("truetype");
   font-weight: 300;
 }
 
 @font-face {
   font-family: "Degular Display";
-  src: url("./fonts/DegularDisplay-Light.woff") format("truetype");
+  src: url("./assets/fonts/DegularDisplay-Light.woff") format("truetype");
   font-weight: 200;
 }
