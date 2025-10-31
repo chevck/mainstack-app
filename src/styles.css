@@ -1,3 +1,574 @@
 body {
   font-family: "Degular Display", sans-serif;
 }
+
+button {
+  background: #131316;
+  color: #fff;
+  gap: 8px;
+  padding: 14px 28px 14px 28px;
+  border-radius: 100px;
+  font-family: "Degular Display", sans-serif;
+  cursor: pointer;
+}
+
+.revenue-app {
+}
+
+.revenue-app .header {
+  border: 2px solid #ffffff;
+  border: 2px;
+  border-radius: 100px;
+  box-shadow: 0px 2px 4px 0px #2d3b430d;
+  box-shadow: 0px 2px 6px 0px #2d3b430f;
+  padding: 12px 24px;
+  display: flex;
+  margin: 16px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.revenue-app .header img {
+  height: 36px;
+  width: 36px;
+  cursor: pointer;
+}
+
+.revenue-app .header .menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.revenue-app .header .menu a {
+  text-decoration: none;
+  color: #56616b;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 18px 8px 14px;
+}
+
+.revenue-app .header .menu a.active {
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 100px;
+}
+
+.revenue-app .header .menu a:hover {
+  background-color: #eff1f6;
+  /* padding: 8px 18px 8px 14px; */
+  border-radius: 100px;
+}
+
+.revenue-app .header .menu a svg {
+  height: 20px;
+  width: 20px;
+  padding: 4px;
+}
+
+.revenue-app .header .settings-section {
+  display: flex;
+  gap: 8px;
+}
+
+.revenue-app .header .settings-section button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.revenue-app .header .settings-section .user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #eff1f6;
+  padding: 4px 12px 4px 5px;
+  border-radius: 100px;
+}
+
+.revenue-app .header .settings-section .user .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(138.98deg, #5c6670 2.33%, #131316 96.28%);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.revenue-app .header .settings-section .user svg {
+  height: 24px;
+  width: 24px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.revenue-app .content {
+  position: relative;
+}
+
+.revenue-app .content .side-menu {
+  position: fixed;
+  top: 40%;
+  left: 16px;
+  border-radius: 100px;
+  width: 48px;
+  height: 192px;
+  background-color: #fff;
+  box-shadow: 0px 6px 12px 0px #5c738314;
+  box-shadow: 0px 4px 8px 0px #5c738314;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.revenue-app .content .side-menu .item img {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.revenue-app .content .side-menu .item:hover img {
+  filter: grayscale(0%);
+}
+
+.revenue-app .main-content {
+  padding: 64px 140px;
+}
+
+.revenue-app .main-content .graph-section {
+  display: grid;
+  grid-template-columns: 60% 10% 30%;
+  /* gap: 64px; */
+  flex-wrap: wrap;
+}
+
+.revenue-app .main-content .graph-section .graph {
+  /* width: 70%; */
+}
+
+.revenue-app .main-content .graph-section .graph .graph-header {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+}
+
+.revenue-app .main-content .graph-section .graph .graph-header .title p {
+  margin-bottom: 8px;
+  color: #56616b;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.revenue-app .main-content .graph-section .graph .graph-header .title h1 {
+  margin-top: 0;
+  font-size: 36px;
+  line-height: 48px;
+  font-weight: 700;
+  /* letter-spacing: -1.5px; */
+  color: #131316;
+}
+
+.revenue-app .main-content .graph-section .graph .graph-header button {
+  height: 52px;
+  width: 167px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  /* letter-spacing: -0.4px; */
+}
+
+.revenue-app .main-content .graph-section .balances {
+  /* width: 30%; */
+}
+
+.revenue-app .main-content .graph-section .balances .balance {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 32px;
+}
+
+.revenue-app .main-content .graph-section .balances .balance div p {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  color: #56616b;
+}
+
+.revenue-app .main-content .graph-section .balances .balance div h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #131316;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+  /* letter-spacing: -0.6px; */
+}
+
+.revenue-app .main-content .transactions-section {
+  margin-top: 82px;
+}
+
+.revenue-app .main-content .transactions-section .transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eff1f6;
+  margin-bottom: 33px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-header
+  .title
+  h3 {
+  font-size: 24px;
+  line-height: 32px;
+  /* letter-spacing: -0.6px; */
+  font-weight: 700;
+  color: #131316;
+}
+
+.revenue-app .main-content .transactions-section .transactions-header .title p {
+  font-size: 14px;
+  line-height: 16px;
+  /* letter-spacing: -0.2px; */
+  font-weight: 400;
+  color: #56616b;
+}
+
+.revenue-app .main-content .transactions-section .transactions-header .filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-header
+  .filters
+  button {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  background-color: #eff1f6;
+  height: 48px;
+  border-radius: 100px;
+  border: none;
+  color: #131316;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  gap: 4px;
+
+  span.filter-count {
+    height: 20px;
+    width: 20px;
+    background-color: #131316;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .empty-state {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 77px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .empty-state
+  .empty-state-icon {
+  background: linear-gradient(135deg, #dbdee6 1.89%, #f6f7f9 98.77%);
+  width: fit-content;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .empty-state
+  h2 {
+  font-size: 28px;
+  line-height: 40px;
+  /* letter-spacing: -0.6px; */
+  font-weight: 700;
+  color: #131316;
+  margin-bottom: 10px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .empty-state
+  p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  /* letter-spacing: 0.2px; */
+  color: #56616b;
+  margin-bottom: 32px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .empty-state
+  button {
+  background-color: #eff1f6;
+  color: #131316;
+  height: 48px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-left {
+  display: flex;
+  gap: 14.5px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-left
+  .avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3fcf2;
+  border-radius: 100%;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+
+  &.withdrawal {
+    background: #f9e3e0;
+  }
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-left
+  .transaction-item-left-content,
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-left
+  .transaction-item-left-content
+  h4 {
+  font-size: 16px;
+  line-height: 24px;
+  /* letter-spacing: -0.2px; */
+  font-weight: 500;
+  color: #131316;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-left
+  .transaction-item-left-content
+  p {
+  color: #56616b;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+
+  &.successful {
+    color: #0ea163;
+  }
+
+  &.failed {
+    color: #961100;
+  }
+
+  &.pending {
+    color: #a77a07;
+  }
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-right
+  h4 {
+  color: #131316;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 105%;
+  /* letter-spacing: -0.4px; */
+  text-align: right;
+}
+
+.revenue-app
+  .main-content
+  .transactions-section
+  .transactions-list
+  .transaction-item
+  .transaction-item-right
+  p {
+  color: #56616b;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: right;
+  line-height: 16px;
+  /* letter-spacing: -0.2px; */
+}
+
+.filter-transactions-drawer .filter-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.filter-transactions-drawer .filter-buttons button {
+  height: 36px;
+  background-color: #fff;
+  color: #131316;
+  border: 1px solid #eff1f6;
+  padding: 0;
+  min-width: 70px;
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  /* letter-spacing: -0.4px; */
+}
+
+.filter-transactions-drawer .filter-form .form-calendar {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.filter-transactions-drawer .filter-form .form-calendar label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  /* letter-spacing: -0.4px; */
+  color: #131316;
+  padding-bottom: 12px;
+}
+
+.filter-transactions-drawer
+  .filter-form
+  .form-calendar
+  .calendar-input-container {
+  margin-top: 12px;
+  display: flex;
+  gap: 6px;
+  width: 100%;
+
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+}
+
+.filter-transactions-drawer .filter-form .form-calendar .calendar-input {
+  width: 100%;
+  height: 48px;
+  background-color: #eff1f6;
+  border-radius: 12px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.filter-transactions-drawer .filter-form .transaction-type {
+  /* margin-top: 24px; */
+  margin-bottom: 24px;
+}
+
+.filter-transactions-drawer .filter-form .transaction-type label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  /* letter-spacing: -0.4px; */
+  color: #131316;
+}
+
+.filter-transactions-drawer
+  .filter-form
+  .transaction-type
+  .transaction-type-select-trigger {
+  width: 100%;
+  height: 48px;
+  background-color: #eff1f6;
+  border-radius: 12px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: #131316;
+}
