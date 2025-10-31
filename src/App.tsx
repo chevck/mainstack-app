@@ -1,15 +1,4 @@
 import "./styles.css";
-import MainStackLogo from "./assets/mainstack-logo.svg";
-import {
-  Banknote,
-  Bell,
-  FileChartColumn,
-  HomeIcon,
-  LayoutGrid,
-  Menu,
-  MessageSquareText,
-  Users,
-} from "lucide-react";
 import { GraphSection } from "./components/GraphSection";
 import { Transactions } from "./components/Transactions";
 import { useEffect, useState } from "react";
