@@ -97,7 +97,7 @@ button {
 .revenue-app .header .menu a svg {
   height: 20px;
   width: 20px;
-  padding: 4px;
+  padding: 3px;
 }
 
 .revenue-app .header .settings-section {
@@ -600,4 +600,24 @@ button {
   padding: 0 12px;
   font-size: 14px;
   color: #131316;
+}
+
+/* Hide the top grid line in the chart */
+.revenue-app
+  .main-content
+  .graph-section
+  .graph
+  .graph-container
+  svg
+  .recharts-cartesian-grid-horizontal
+  line:first-child,
+.revenue-app
+  .main-content
+  .graph-section
+  .graph
+  .graph-container
+  .recharts-cartesian-grid-horizontal
+  line:first-child {
+  stroke: transparent !important;
+  display: none;
 }

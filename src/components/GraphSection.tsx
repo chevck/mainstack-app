@@ -52,23 +52,27 @@ export function GraphSection({
         </div>
         <div className='graph-container'>
           <Chart.Root maxH='sm' chart={chart}>
-            <LineChart data={chart.data}>
+            <LineChart
+              data={chart.data}
+              margin={{ left: -5, right: 0, top: 0, bottom: 20 }}
+            >
               <CartesianGrid stroke={chart.color("border")} vertical={false} />
               <XAxis
                 axisLine={false}
                 dataKey={chart.key("month")}
-                // tickFormatter={(value) => value.slice(0, 3)}
                 tickFormatter={(value) => value}
                 stroke={chart.color("border")}
                 ticks={[
                   chart.data[0].month,
                   chart.data[chart.data.length - 1].month,
                 ]}
+                interval={0}
+                tick={{ fontSize: 14, fill: "#56616b" }}
               />
               <YAxis
                 axisLine={false}
-                tickLine={false}
-                tickMargin={10}
+                tick={false}
+                width={0}
                 stroke={chart.color("border")}
               />
               {chart.series.map((item) => (
