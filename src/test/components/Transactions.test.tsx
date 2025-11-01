@@ -36,43 +36,46 @@ const mockTransactions: Transaction[] = [
 ];
 
 describe("Transactions", () => {
+  const mockSetFilters = jest.fn();
+  const mockFilters = {};
+
   it("should render transactions count", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(screen.getByText("2 Transactions")).toBeDefined();
   });
 
   it("should render empty state when no transactions", () => {
-    render(<Transactions transactions={[]} />);
+    render(<Transactions transactions={[]} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(
       screen.getByText("No matching transaction found for the selected filter")
     ).toBeDefined();
   });
 
   it("should render all transaction items", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
 
     const transactionItems = document.querySelectorAll(".transaction-item");
     expect(transactionItems.length).toBe(2);
   });
 
   it("should render transaction amounts", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(screen.getByText(/USD\s*1,000/)).toBeDefined();
     expect(screen.getByText(/USD\s*500/)).toBeDefined();
   });
 
   it("should render withdrawal transactions correctly", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(screen.getByText("Cash withdrawal")).toBeDefined();
   });
 
   it("should render deposit transactions correctly", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(screen.getByText("Test Product")).toBeDefined();
   });
 
   it("should open filter drawer when filter button is clicked", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     const filterButton = screen.getByText("Filter");
 
     fireEvent.click(filterButton);
@@ -85,13 +88,14 @@ describe("Transactions", () => {
   });
 
   it("should display filter count", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    const filtersWithData = { status: "successful", type: "deposit", date: "2024-01" };
+    render(<Transactions transactions={mockTransactions} filters={filtersWithData} setFilters={mockSetFilters} />);
     const filterCount = screen.getByText("3");
     expect(filterCount).toBeDefined();
   });
 
   it("should render export button", () => {
-    render(<Transactions transactions={mockTransactions} />);
+    render(<Transactions transactions={mockTransactions} filters={mockFilters} setFilters={mockSetFilters} />);
     expect(screen.getByText("Export list")).toBeDefined();
   });
 });
