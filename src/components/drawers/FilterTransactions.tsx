@@ -1,109 +1,35 @@
-import {
-  Button,
-  CloseButton,
-  createListCollection,
-  Drawer,
-  Portal,
-  Select,
-} from "@chakra-ui/react";
+import { Button, CloseButton, Drawer, Portal } from "@chakra-ui/react";
 import { X } from "lucide-react";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
-
-const TransactionTypeSelect = ({
-  setFilters: _setFilters,
-}: {
-  setFilters: (filters: Record<string, any>) => void;
-}) => {
-  const frameworks = createListCollection({
-    items: [
-      { label: "Store Transactions", value: "store-transactions" },
-      { label: "Get Tipped", value: "get-tipped" },
-      { label: "Withdrawals", value: "withdrawals" },
-      { label: "Chargebacks", value: "chargebacks" },
-      { label: "Cashbacks", value: "cashbacks" },
-      { label: "Refer & Earn", value: "refer-and-earn" },
-    ],
-  });
-  return (
-    <Select.Root multiple collection={frameworks} size='sm' width='100%'>
-      <Select.HiddenSelect />
-      <Select.Label>Transaction Type</Select.Label>
-      <Select.Control>
-        <Select.Trigger className='transaction-type-select-trigger'>
-          <Select.ValueText placeholder='Store Transactions' />
-        </Select.Trigger>
-        <Select.IndicatorGroup>
-          <Select.Indicator />
-        </Select.IndicatorGroup>
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content>
-          {frameworks.items.map((framework) => (
-            <Select.Item item={framework} key={framework.value}>
-              {framework.label}
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select.Root>
-  );
-};
-
-const TransactionStatusSelect = ({
-  setFilters: _setFilters,
-}: {
-  setFilters: (filters: Record<string, any>) => void;
-}) => {
-  const frameworks = createListCollection({
-    items: [
-      { label: "Successful", value: "successful" },
-      { label: "Failed", value: "failed" },
-      { label: "Pending", value: "pending" },
-    ],
-  });
-  return (
-    <Select.Root multiple collection={frameworks} size='sm' width='100%'>
-      <Select.HiddenSelect />
-      <Select.Label>Transaction Status</Select.Label>
-      <Select.Control>
-        <Select.Trigger className='transaction-type-select-trigger'>
-          <Select.ValueText placeholder='Select transaction status' />
-        </Select.Trigger>
-        <Select.IndicatorGroup>
-          <Select.Indicator />
-        </Select.IndicatorGroup>
-      </Select.Control>
-      <Select.Positioner>
-        <Select.Content
-        // onChange={(data) => {
-        //   // setFilters({ ...filters, status: framework.value });
-        // }}
-        >
-          {frameworks.items.map((framework) => (
-            <Select.Item item={framework} key={framework.value}>
-              {framework.label}
-              <Select.ItemIndicator />
-            </Select.Item>
-          ))}
-        </Select.Content>
-      </Select.Positioner>
-    </Select.Root>
-  );
-};
+import { CustomSelect } from "../ui/custom-select";
+import type { Filters } from "../../types/filters.types";
+import { toast } from "sonner";
 
 export function FilterTransactionsDrawer({
   open,
   onOpenChange,
   setFilters,
+  filters,
+  clearFilters,
 }: {
   open: boolean;
   onOpenChange: (details: Drawer.OpenChangeDetails) => void;
-  setFilters: (filters: any) => void; // TODO: add type
+  setFilters: (filters: Filters) => void;
+  filters: Filters;
+  clearFilters: () => void;
 }) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(
+    filters?.dateRange?.startDate
+      ? new Date(filters.dateRange.startDate)
+      : new Date()
+  );
+  const [endDate, setEndDate] = useState(
+    filters?.dateRange?.endDate
+      ? new Date(filters.dateRange.endDate)
+      : new Date()
+  );
+  const [psuedoFilters, setPsuedoFilters] = useState<Filters>({});
 
   return (
     <Drawer.Root open={open} onOpenChange={onOpenChange}>
@@ -126,7 +52,7 @@ export function FilterTransactionsDrawer({
                   onClick={() => {
                     setStartDate(new Date());
                     setEndDate(new Date());
-                    setFilters({
+                    setPsuedoFilters({
                       dateRange: {
                         startDate: new Date(),
                         endDate: new Date(),
@@ -143,7 +69,7 @@ export function FilterTransactionsDrawer({
                       new Date(new Date().setDate(new Date().getDate() - 7))
                     );
                     setEndDate(new Date());
-                    setFilters({
+                    setPsuedoFilters({
                       dateRange: {
                         startDate: new Date(
                           new Date().setDate(new Date().getDate() - 7)
@@ -170,10 +96,10 @@ export function FilterTransactionsDrawer({
                       new Date(new Date().setMonth(new Date().getMonth() - 3))
                     );
                     setEndDate(new Date());
-                    setFilters({
+                    setPsuedoFilters({
                       dateRange: {
-                        startDate: startDate.toISOString(),
-                        endDate: endDate.toISOString(),
+                        startDate,
+                        endDate,
                       },
                     });
                   }}
@@ -191,26 +117,70 @@ export function FilterTransactionsDrawer({
                       onChange={(date: Date | null) => {
                         if (date) {
                           setStartDate(date);
+                          setPsuedoFilters({
+                            dateRange: {
+                              ...(filters?.dateRange || {}),
+                              startDate: date,
+                              endDate:
+                                filters?.dateRange?.endDate || new Date(),
+                            },
+                          });
                         }
                       }}
                     />
                     <DatePicker
-                      dateFormat='dd/MM/yyyy'
                       selected={endDate}
                       className='calendar-input'
                       onChange={(date: Date | null) => {
                         if (date) {
                           setEndDate(date);
+                          setPsuedoFilters({
+                            dateRange: {
+                              ...(filters?.dateRange || {}),
+                              endDate: date,
+                              startDate:
+                                filters?.dateRange?.startDate || new Date(),
+                            },
+                          });
                         }
                       }}
                     />
                   </div>
                 </div>
                 <div className='transaction-type'>
-                  <TransactionTypeSelect setFilters={setFilters} />
+                  <CustomSelect
+                    label='Transaction Type'
+                    options={[
+                      "Store Transactions",
+                      "Get Tipped",
+                      "Withdrawal",
+                      "Chargebacks",
+                      "Cashbacks",
+                      "Refer & Earn",
+                    ].map((option) => ({
+                      label: option,
+                      value: option,
+                    }))}
+                    setValues={(values) =>
+                      setPsuedoFilters({ transactionType: values })
+                    }
+                    values={filters?.transactionType || []}
+                  />
                 </div>
                 <div className='transaction-type'>
-                  <TransactionStatusSelect setFilters={setFilters} />
+                  <CustomSelect
+                    label='Transaction Status'
+                    options={["Pending", "Successful", "Failed"].map(
+                      (option) => ({
+                        label: option,
+                        value: option,
+                      })
+                    )}
+                    setValues={(values) =>
+                      setPsuedoFilters({ transactionStatus: values })
+                    }
+                    values={filters?.transactionStatus || []}
+                  />
                 </div>
               </div>
             </Drawer.Body>
@@ -222,6 +192,12 @@ export function FilterTransactionsDrawer({
                 color='#131316'
                 fontWeight='600'
                 height='48px'
+                onClick={() => {
+                  clearFilters();
+                  toast.info("Filters cleared");
+                  setPsuedoFilters({});
+                  onOpenChange({ open: false });
+                }}
               >
                 Clear
               </Button>
@@ -229,7 +205,10 @@ export function FilterTransactionsDrawer({
                 fontWeight='600'
                 width='50%'
                 height='48px'
-                onClick={() => onOpenChange({ open: false })}
+                onClick={() => {
+                  setFilters({ ...filters, ...psuedoFilters });
+                  onOpenChange({ open: false });
+                }}
               >
                 Apply
               </Button>
