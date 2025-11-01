@@ -2,12 +2,13 @@ import { cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Polyfill for structuredClone (needed for Chakra UI)
-if (!global.structuredClone) {
-  global.structuredClone = (obj: any) => JSON.parse(JSON.stringify(obj));
+if (!(global as any).structuredClone) {
+  (global as any).structuredClone = (obj: any) =>
+    JSON.parse(JSON.stringify(obj));
 }
 
 // Polyfill for ResizeObserver (needed for Chakra UI charts)
-global.ResizeObserver = class ResizeObserver {
+(global as any).ResizeObserver = class ResizeObserver {
   observe() {
     // do nothing
   }
@@ -20,7 +21,7 @@ global.ResizeObserver = class ResizeObserver {
 } as any;
 
 // Polyfill for IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+(global as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
   observe() {
     // do nothing

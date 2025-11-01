@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import { useState } from "react";
 
 const TransactionTypeSelect = ({
-  setFilters,
+  setFilters: _setFilters,
 }: {
   setFilters: (filters: Record<string, any>) => void;
 }) => {
@@ -52,7 +52,7 @@ const TransactionTypeSelect = ({
 };
 
 const TransactionStatusSelect = ({
-  setFilters,
+  setFilters: _setFilters,
 }: {
   setFilters: (filters: Record<string, any>) => void;
 }) => {

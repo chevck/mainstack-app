@@ -16,8 +16,8 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["jest", "node", "vite/client"]
+    "types": ["jest", "node"]
   },
-  "include": ["src", "src/**/*.d.ts"]
+  "include": ["src", "src/**/*.d.ts", "src/test/global.d.ts"]
 }
 
