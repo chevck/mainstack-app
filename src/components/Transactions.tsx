@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { FilterTransactionsDrawer } from "./drawers/FilterTransactions";
 import { useState } from "react";
-import type { Transaction } from "../utils/types";
+import type { Transaction } from "../types/transaction.types";
 import { formatMoney, formatDate } from "../utils";
 
 export function Transactions({

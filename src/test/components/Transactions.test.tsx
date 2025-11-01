@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen, fireEvent } from "../test-utils";
 import { Transactions } from "../../components/Transactions";
 import type { Transaction } from "../../types/transaction.types";

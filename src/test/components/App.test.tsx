@@ -6,7 +6,7 @@ import type { Transaction } from "../../types/transaction.types";
 import type { WalletBalance } from "../../types/wallet.types";
 
 // Mock fetch
-global.fetch = jest.fn();
+(global as any).fetch = jest.fn();
 
 const mockUser: User = {
   first_name: "John",
@@ -66,7 +66,7 @@ describe("App", () => {
 
   describe("App Structure and Layout", () => {
     it("should render the root revenue-app container", () => {
-      (global.fetch as any).mockResolvedValueOnce({
+      ((global as any).fetch as any).mockResolvedValueOnce({
         ok: true,
         json: async () => mockUser,
       });
@@ -77,7 +77,7 @@ describe("App", () => {
     });
 
     it("should render loading overlay initially with spinner", () => {
-      (global.fetch as any).mockResolvedValueOnce({
+      ((global as any).fetch as any).mockResolvedValueOnce({
         ok: true,
         json: async () => mockUser,
       });
@@ -91,7 +91,7 @@ describe("App", () => {
     });
 
     it("should render complete app structure: Header, Sidebar, and Main Content", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -134,7 +134,7 @@ describe("App", () => {
     });
 
     it("should render GraphSection and Transactions within main-content", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -172,7 +172,7 @@ describe("App", () => {
 
   describe("Data Fetching", () => {
     it("should fetch data from all three endpoints in parallel on mount", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -190,19 +190,19 @@ describe("App", () => {
 
       await waitFor(
         () => {
-          expect(global.fetch).toHaveBeenCalledTimes(3);
-          expect(global.fetch).toHaveBeenCalledWith(`${ENDPOINT_URL}/user`);
-          expect(global.fetch).toHaveBeenCalledWith(
+          expect((global as any).fetch).toHaveBeenCalledTimes(3);
+          expect((global as any).fetch).toHaveBeenCalledWith(`${ENDPOINT_URL}/user`);
+          expect((global as any).fetch).toHaveBeenCalledWith(
             `${ENDPOINT_URL}/transactions`
           );
-          expect(global.fetch).toHaveBeenCalledWith(`${ENDPOINT_URL}/wallet`);
+          expect((global as any).fetch).toHaveBeenCalledWith(`${ENDPOINT_URL}/wallet`);
         },
         { timeout: 3000 }
       );
     });
 
     it("should hide loading overlay after data is fetched", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -235,7 +235,7 @@ describe("App", () => {
 
   describe("Data Flow to Components", () => {
     it("should pass user data to Header component", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -261,7 +261,7 @@ describe("App", () => {
     });
 
     it("should pass walletBalance data to GraphSection component", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -289,7 +289,7 @@ describe("App", () => {
     });
 
     it("should pass transactions data to Transactions component", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -316,7 +316,7 @@ describe("App", () => {
     });
 
     it("should handle null user gracefully", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => null,
@@ -351,7 +351,7 @@ describe("App", () => {
         .spyOn(console, "error")
         .mockImplementation(() => {});
 
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: false,
           json: async () => {
@@ -402,7 +402,7 @@ describe("App", () => {
     it("should handle partial fetch failures gracefully", async () => {
       // Mock: user succeeds, transactions succeeds (empty array), wallet succeeds
       // This simulates a scenario where some data is available
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
@@ -448,7 +448,7 @@ describe("App", () => {
 
   describe("Component Integration", () => {
     it("should render all major components in correct DOM hierarchy", async () => {
-      (global.fetch as any)
+      ((global as any).fetch as any)
         .mockResolvedValueOnce({
           ok: true,
           json: async () => mockUser,
