@@ -2,7 +2,7 @@ import "./styles.css";
 import "./responsive.css";
 import { GraphSection } from "./components/GraphSection";
 import { Transactions } from "./components/Transactions";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
 import type { Transaction } from "./types/transaction.types";
 import type { User } from "./types/user.types";
@@ -10,6 +10,7 @@ import type { WalletBalance } from "./types/wallet.types";
 import { ENDPOINT_URL } from "./constants/config";
 import { Sidebar } from "./components/layout/Sidebar";
 import { Header } from "./components/layout/Header";
+import type { Filters } from "./types/filters.types";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,14 @@ function App() {
   const [walletBalance, setWalletBalance] = useState<WalletBalance | null>(
     null
   );
+  const [filters, setFilters] = useState<Filters>({});
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, [filters]);
 
   const handleFetchUser = async () => {
     try {
@@ -73,6 +82,36 @@ function App() {
     }
   };
 
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((transaction) => {
+      if (
+        filters.dateRange &&
+        filters.dateRange.startDate &&
+        filters.dateRange.endDate
+      ) {
+        const transactionDate = new Date(transaction.date);
+        const startDate = new Date(
+          new Date(filters.dateRange.startDate).setHours(0, 0, 0, 0)
+        );
+        const endDate = new Date(
+          new Date(filters.dateRange.endDate.setHours(23, 59, 59, 999))
+        );
+        return transactionDate >= startDate && transactionDate <= endDate;
+      }
+      if (filters.transactionType && filters.transactionType.length > 0) {
+        return filters.transactionType
+          .map((type) => type.toLowerCase())
+          .includes(transaction.type.toLowerCase());
+      }
+      if (filters.transactionStatus && filters.transactionStatus.length > 0) {
+        return filters.transactionStatus
+          .map((status) => status.toLowerCase())
+          .includes(transaction.status.toLowerCase());
+      }
+      return true;
+    });
+  }, [transactions, filters]);
+
   return (
     <div className='revenue-app'>
       {isLoading && (
@@ -84,8 +123,15 @@ function App() {
       <div className='content'>
         <Sidebar />
         <div className='main-content'>
-          <GraphSection walletBalance={walletBalance} />
-          <Transactions transactions={transactions} />
+          <GraphSection
+            walletBalance={walletBalance}
+            transactions={filteredTransactions}
+          />
+          <Transactions
+            transactions={filteredTransactions}
+            filters={filters}
+            setFilters={setFilters}
+          />
         </div>
       </div>
     </div>

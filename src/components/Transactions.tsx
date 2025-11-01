@@ -10,14 +10,18 @@ import { FilterTransactionsDrawer } from "./drawers/FilterTransactions";
 import { useState } from "react";
 import type { Transaction } from "../types/transaction.types";
 import { formatMoney, formatDate } from "../utils";
+import type { Filters } from "../types/filters.types";
 
 export function Transactions({
   transactions,
+  filters,
+  setFilters,
 }: {
   transactions: Transaction[];
+  filters: Filters;
+  setFilters: (filters: Filters) => void;
 }) {
   const [openFilterDrawer, setOpenFilterDrawer] = useState(false);
-  const [filters, setFilters] = useState({});
 
   const handleOpenFilterDrawer = (details: Drawer.OpenChangeDetails) => {
     setOpenFilterDrawer(details.open);
@@ -54,7 +58,7 @@ export function Transactions({
               </div>
               <h2>No matching transaction found for the selected filter</h2>
               <p>Change your fiter to see more results, or add a new product</p>
-              <button>Clear Filter</button>
+              <button onClick={() => setFilters({})}>Clear Filter</button>
             </div>
           ) : (
             transactions.map((transaction, key) => (
@@ -103,6 +107,8 @@ export function Transactions({
         open={openFilterDrawer}
         onOpenChange={handleOpenFilterDrawer}
         setFilters={(data) => setFilters({ ...filters, ...data })}
+        filters={filters}
+        clearFilters={() => setFilters({})}
       />
     </>
   );

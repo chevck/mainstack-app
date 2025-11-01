@@ -2,12 +2,15 @@ import { Chart, useChart } from "@chakra-ui/charts";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { InfoIcon } from "lucide-react";
 import type { WalletBalance } from "../types/wallet.types";
-import { formatMoney } from "../utils";
+import { formatDate, formatMoney } from "../utils";
+import type { Transaction } from "../types/transaction.types";
 
 export function GraphSection({
   walletBalance,
+  transactions,
 }: {
   walletBalance: WalletBalance | null;
+  transactions: Transaction[];
 }) {
   const balances = [
     {
@@ -29,14 +32,10 @@ export function GraphSection({
   ];
 
   const chart = useChart({
-    data: [
-      { sale: 10, month: "Apr 1, 2022" },
-      { sale: 35, month: "Apr 5, 2022" },
-      { sale: 65, month: "Apr 10, 2022" },
-      { sale: 44, month: "Apr 15, 2022" },
-      { sale: 53, month: "Apr 20, 2022" },
-      { sale: 30, month: "Apr 30, 2022" },
-    ],
+    data: transactions.map((transaction) => ({
+      sale: transaction?.amount,
+      month: formatDate(transaction?.date),
+    })),
     series: [{ name: "sale", color: "#FF5403" }],
   });
 
@@ -63,8 +62,8 @@ export function GraphSection({
                 tickFormatter={(value) => value}
                 stroke={chart.color("border")}
                 ticks={[
-                  chart.data[0].month,
-                  chart.data[chart.data.length - 1].month,
+                  chart.data[0]?.month,
+                  chart.data[chart.data.length - 1]?.month,
                 ]}
                 interval={0}
                 tick={{ fontSize: 14, fill: "#56616b" }}
