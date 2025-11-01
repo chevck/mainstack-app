@@ -10,7 +10,11 @@ import { X } from "lucide-react";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
 
-const TransactionTypeSelect = () => {
+const TransactionTypeSelect = ({
+  setFilters,
+}: {
+  setFilters: (filters: Record<string, any>) => void;
+}) => {
   const frameworks = createListCollection({
     items: [
       { label: "Store Transactions", value: "store-transactions" },
@@ -47,7 +51,11 @@ const TransactionTypeSelect = () => {
   );
 };
 
-const TransactionStatusSelect = () => {
+const TransactionStatusSelect = ({
+  setFilters,
+}: {
+  setFilters: (filters: Record<string, any>) => void;
+}) => {
   const frameworks = createListCollection({
     items: [
       { label: "Successful", value: "successful" },
@@ -68,14 +76,14 @@ const TransactionStatusSelect = () => {
         </Select.IndicatorGroup>
       </Select.Control>
       <Select.Positioner>
-        <Select.Content>
+        <Select.Content
+        // onChange={(data) => {
+        //   // setFilters({ ...filters, status: framework.value });
+        // }}
+        >
           {frameworks.items.map((framework) => (
             <Select.Item item={framework} key={framework.value}>
-              <div className='transaction-status-item'>
-                <div className='transaction-status-item-label'>
-                  {framework.label}
-                </div>
-              </div>
+              {framework.label}
               <Select.ItemIndicator />
             </Select.Item>
           ))}
@@ -88,9 +96,11 @@ const TransactionStatusSelect = () => {
 export function FilterTransactionsDrawer({
   open,
   onOpenChange,
+  setFilters,
 }: {
   open: boolean;
   onOpenChange: (details: Drawer.OpenChangeDetails) => void;
+  setFilters: (filters: any) => void; // TODO: add type
 }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -112,10 +122,64 @@ export function FilterTransactionsDrawer({
             </Drawer.Header>
             <Drawer.Body>
               <div className='filter-buttons'>
-                <button className='active'>Today</button>
-                <button>Last 7 days</button>
-                <button>This month</button>
-                <button>Last 3 months</button>
+                <button
+                  onClick={() => {
+                    setStartDate(new Date());
+                    setEndDate(new Date());
+                    setFilters({
+                      dateRange: {
+                        startDate: new Date(),
+                        endDate: new Date(),
+                      },
+                    });
+                  }}
+                  className='active'
+                >
+                  Today
+                </button>
+                <button
+                  onClick={() => {
+                    setStartDate(
+                      new Date(new Date().setDate(new Date().getDate() - 7))
+                    );
+                    setEndDate(new Date());
+                    setFilters({
+                      dateRange: {
+                        startDate: new Date(
+                          new Date().setDate(new Date().getDate() - 7)
+                        ),
+                        endDate: new Date(),
+                      },
+                    });
+                  }}
+                >
+                  Last 7 days
+                </button>
+                <button
+                  onClick={() =>
+                    setStartDate(
+                      new Date(new Date().setMonth(new Date().getMonth() - 1))
+                    )
+                  }
+                >
+                  Last month
+                </button>
+                <button
+                  onClick={() => {
+                    setStartDate(
+                      new Date(new Date().setMonth(new Date().getMonth() - 3))
+                    );
+                    setEndDate(new Date());
+                    setFilters({
+                      dateRange: {
+                        startDate: startDate.toISOString(),
+                        endDate: endDate.toISOString(),
+                      },
+                    });
+                  }}
+                >
+                  Last 3 months
+                </button>
               </div>
               <div className='filter-form'>
                 <div className='form-calendar'>
@@ -143,10 +207,10 @@ export function FilterTransactionsDrawer({
                   </div>
                 </div>
                 <div className='transaction-type'>
-                  <TransactionTypeSelect />
+                  <TransactionTypeSelect setFilters={setFilters} />
                 </div>
                 <div className='transaction-type'>
-                  <TransactionStatusSelect />
+                  <TransactionStatusSelect setFilters={setFilters} />
                 </div>
               </div>
             </Drawer.Body>
@@ -161,7 +225,12 @@ export function FilterTransactionsDrawer({
               >
                 Clear
               </Button>
-              <Button fontWeight='600' width='50%' height='48px'>
+              <Button
+                fontWeight='600'
+                width='50%'
+                height='48px'
+                onClick={() => onOpenChange({ open: false })}
+              >
                 Apply
               </Button>
             </Drawer.Footer>

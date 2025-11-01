@@ -16,12 +16,10 @@ export function Transactions({
 }: {
   transactions: Transaction[];
 }) {
-  console.log({ transactions });
   const [openFilterDrawer, setOpenFilterDrawer] = useState(false);
-  //   const [filters, setFilters] = useState(null);
+  const [filters, setFilters] = useState({});
 
   const handleOpenFilterDrawer = (details: Drawer.OpenChangeDetails) => {
-    console.log({ details });
     setOpenFilterDrawer(details.open);
   };
 
@@ -35,7 +33,12 @@ export function Transactions({
           </div>
           <div className='filters'>
             <button onClick={() => handleOpenFilterDrawer({ open: true })}>
-              Filter <span className='filter-count'>3</span>
+              Filter{" "}
+              {Object.keys(filters).length > 0 ? (
+                <span className='filter-count'>
+                  {Object.keys(filters).length}
+                </span>
+              ) : null}
               <ChevronDown size={20} />
             </button>
             <button>
@@ -99,6 +102,7 @@ export function Transactions({
       <FilterTransactionsDrawer
         open={openFilterDrawer}
         onOpenChange={handleOpenFilterDrawer}
+        setFilters={(data) => setFilters({ ...filters, ...data })}
       />
     </>
   );
