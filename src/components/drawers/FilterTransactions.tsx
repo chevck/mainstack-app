@@ -37,7 +37,6 @@ export function FilterTransactionsDrawer({
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content
-            minWidth='456px'
             borderRadius='20px'
             className='filter-transactions-drawer'
           >
