@@ -78,7 +78,9 @@ export function GraphSection({
                 <Line
                   type='natural'
                   key={item.name}
-                  isAnimationActive={false}
+                  isAnimationActive={true}
+                  animationDuration={1000}
+                  animationEasing='ease-out'
                   dataKey={chart.key(item.name)}
                   stroke={chart.color(item.color)}
                   strokeWidth={1}

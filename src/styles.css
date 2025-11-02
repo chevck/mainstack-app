@@ -519,10 +519,15 @@ button {
   /* letter-spacing: -0.2px; */
 }
 
+.filter-transactions-drawer {
+  min-width: 456px;
+}
+
 .filter-transactions-drawer .filter-buttons {
   display: flex;
   gap: 12px;
   margin-top: 8px;
+  flex-wrap: wrap;
 }
 
 .filter-transactions-drawer .filter-buttons button {
